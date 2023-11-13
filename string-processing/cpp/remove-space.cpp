@@ -1,35 +1,62 @@
 #include "iostream"
 
 #define SPACE 0x20
+#define NULL_CHAR 0x00
 
-void removeSpace(char in[], char out[], unsigned int length){
-
-    char* p_out = out;
-
+void removeAllSpaces(char in[], char out[], unsigned int length){
     for (int index = 0; index < length; index++)
     {   
         if(in[index] != SPACE){
-            *p_out = in[index];
-            p_out++;
+            *out = in[index];
+            out++;
         }
     }
 }
 
 void removeSpaceBegin(char in[], char out[], unsigned int length){
     bool begin = false;
-    bool end = false;
-    
-    char* p_out = out;
 
     for (int index = 0; index < length; index++)
     {   
         if((in[index] != SPACE && !begin) || begin){
-            *p_out = in[index];
-            p_out++;
+            *out = in[index];
+            out++;
 
             begin = true;
         }
     }
+}
+
+void removeSpaceEnd(char in[], char out[], unsigned int length){
+    bool end = false;
+
+    out = out + length - 1;
+
+    for (int index = length - 1; index >= 0; index--)
+    {   
+        if(in[index] == NULL_CHAR && !end){
+            *out = in[index];
+            out--;
+        }
+        else if(in[index] == SPACE && !end){
+            *out = NULL_CHAR;
+            out--;
+        }
+        else if(in[index] != SPACE && !end){
+            *out = in[index];
+            out--;
+            end = true;
+        }
+        else{
+            *out = in[index];
+            out--;
+        }
+    }
+}
+
+void removeSpaceBeginEnd(char in[], char out[], unsigned int length){
+    removeSpaceBegin(in, out, length);
+    removeSpaceEnd(out, out, length);
 }
 
 int main(int argc, char const *argv[])
@@ -43,13 +70,21 @@ int main(int argc, char const *argv[])
 
     std::cout << strIn << std::endl;
 
-    removeSpace(strIn, strOut, length);
+    removeAllSpaces(strIn, strOut, length);
 
     std::cout << strOut << std::endl;
 
     removeSpaceBegin(strIn, strOut, length);
 
-    std::cout << strOut << std::endl;    
+    std::cout << strOut << std::endl;
+
+    removeSpaceEnd(strIn, strOut, length);
+
+    std::cout << strOut << std::endl;  
+
+    removeSpaceBeginEnd(strIn, strOut, length);
+
+    std::cout << strOut << std::endl;
 
     return 0;
 }
