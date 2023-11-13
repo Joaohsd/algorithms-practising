@@ -1,2 +1,2 @@
 # algorithms-learning
-Implementing some algorithms in Python and C++ just for practising.
+Implementing some algorithms studied during college in Python and C++ languages just for practising.
