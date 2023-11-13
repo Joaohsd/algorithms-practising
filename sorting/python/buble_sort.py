@@ -21,6 +21,7 @@ def bubble_sort(arr, ascending):
                     tmp = arr[curr_index]
                     arr[curr_index] = arr[next_index]
                     arr[next_index] = tmp
+        N = N - 1 
 
     print(f'After sorting: {arr}')
 
